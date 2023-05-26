@@ -1,3 +1,4 @@
-# Alhuda-2-Market-LLC
-Building a website for a school project. Using LAMP stack. Trying to build a site for a restaurant that offers online ordering.
-Any assistance would be greatly appreciated as I do not know PHP or MySQL. 
+# Halal Food Market
+
+This is a restaurant online ordering application for a business, where a customer can place an order for food and the admin will recieve the order. This application is being used by a business called Halal Food Market located in St. Louis Missouri.
+
