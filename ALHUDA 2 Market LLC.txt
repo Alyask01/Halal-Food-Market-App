@@ -1,0 +1,104 @@
+var menu = document.createElement('div');
+menu.innerHTML = '<h1>Menu</h1>';
+var menuItems = [
+  {
+    name: 'Pizza',
+    price: '$10'
+  },
+  {
+    name: 'Pasta',
+    price: '$8'
+  },
+  {
+    name: 'Salad',
+    price: '$5'
+  }
+];
+for (var i = 0; i < menuItems.length; i++) {
+  var menuItem = document.createElement('div');
+  menuItem.innerHTML = menuItems[i].name + ' ' + menuItems[i].price;
+  menu.appendChild(menuItem);
+}
+document.body.appendChild(menu);
+
+/* connect inventory to a SQL database */
+var inventory = [
+    {
+      name: 'Pizza',
+      quantity: 10
+    },
+    {
+      name: 'Pasta',
+      quantity: 10
+    },
+    {
+      name: 'Salad',
+      quantity: 10
+    }
+  ];
+  var db = openDatabase('inventory', '1.0', 'Inventory', 2 * 1024 * 1024);
+  db.transaction(function (tx) {
+    tx.executeSql('CREATE TABLE IF NOT EXISTS inventory (name, quantity)');
+    for (var i = 0; i < inventory.length; i++) {
+      tx.executeSql('INSERT INTO inventory (name, quantity) VALUES (?, ?)', [inventory[i].name, inventory[i].quantity]);
+    }
+  });
+
+  
+  /* integrate into an html website */
+var website = document.createElement('div');
+website.innerHTML = '<h1>Website</h1>';
+var websiteItems = [
+  {
+    name: 'Home',
+    url: 'https://almustafa-market-llc.business.site/'
+  },
+  {
+    name: 'About',
+    url: 'https://almustafa-market-llc.business.site/' //need to get about us section built
+  },
+  {
+    name: 'Contact',
+    url: 'https://almustafa-market-llc.business.site/#details'
+  }
+];
+for (var i = 0; i < websiteItems.length; i++) {
+  var websiteItem = document.createElement('div');
+  websiteItem.innerHTML = '<a href="' + websiteItems[i].url + '">' + websiteItems[i].name + '</a>';
+  website.appendChild(websiteItem);
+}
+document.body.appendChild(website);
+
+
+/* create a free text form to order items */
+var orderForm = document.createElement('div');
+orderForm.innerHTML = '<h1>Order Form</h1>';
+var orderFormItems = [
+  {
+    name: 'Pizza',
+    quantity: 0
+  },
+  {
+    name: 'Pasta',
+    quantity: 0
+  },
+  {
+    name: 'Salad',
+    quantity: 0
+  }
+];
+for (var i = 0; i < orderFormItems.length; i++) {
+  var orderFormItem = document.createElement('div');
+  orderFormItem.innerHTML = orderFormItems[i].name + ' <input type="text" id="' + orderFormItems[i].name + '" value="' + orderFormItems[i].quantity + '">';
+  orderForm.appendChild(orderFormItem);
+}
+var orderButton = document.createElement('button');
+orderButton.innerHTML = 'Order';
+orderButton.onclick = function () {
+  for (var i = 0; i < orderFormItems.length; i++) {
+    orderFormItems[i].quantity = document.getElementById(orderFormItems[i].name).value;
+  }
+  alert('Order placed!');
+};
+orderForm.appendChild(orderButton);
+document.body.appendChild(orderForm);
